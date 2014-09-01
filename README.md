@@ -32,7 +32,7 @@ $post    = new \Koine\Http\Params($_POST);
 $get     = new \Koine\Http\Params($_GET);
 $params  = new \Koine\Http\Params($_REQUEST);
 
-$request = new Request(array(
+$request = new \Koine\Http\Request(array(
     'environment' => $env,
     'cookies'     => $cookies,
     'session'     => $session,
@@ -40,10 +40,8 @@ $request = new Request(array(
 ));
 
 // set view
-$viewConfig = new \Koine\View\Config();
-$viewConfig->addPath(__DIR__ . '/views');
-
-$view = new \Koine\View($config);
+$view = new \Koine\Mvc\View();
+$view->addPath(__DIR__ . '/views');
 
 // set front controller
 $frontController = new \Koine\Mvc\FrontController();
