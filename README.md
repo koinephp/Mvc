@@ -74,7 +74,7 @@ class HelloWorldController extends Controller
         // do something, like check for logged user
         $this->getRequest()->getSession();
 
-        if ($session['user_id']) {
+        if (!$session['user_id']) {
             throw new \MyApp\AccessDeniedException("User is not logged");
         }
     }
