@@ -20,6 +20,83 @@ Package information:
 ### Usage
 
 ```php
+<?php
+// index.php or something
+
+
+// set request
+$env     = new \Koine\Http\Environment($_SERVER);
+$cookies = new \Koine\Http\Cookies($_COOKIE);
+$session = new \Koine\Http\Session($_SESSION);
+$post    = new \Koine\Http\Params($_POST);
+$get     = new \Koine\Http\Params($_GET);
+$params  = new \Koine\Http\Params($_REQUEST);
+
+$request = new Request(array(
+    'environment' => $env,
+    'cookies'     => $cookies,
+    'session'     => $session,
+    'params'      => $params,
+));
+
+// set view
+$viewConfig = new \Koine\View\Config();
+$viewConfig->addPath(__DIR__ . '/views');
+
+$view = new \Koine\View($config);
+
+// set front controller
+$frontController = new \Koine\Mvc\FrontController();
+$frontController->setRequest($request)
+    ->setController('MyApp\HelloWord') // Will resolve to MyApp\HelloWorldController
+    ->setAction('sayHello')
+    ->setView($view);
+
+$response = $frontController->execute();
+$response->send();
+
+exit();
+```
+
+The controller:
+
+```php
+<?php
+
+namespace MyApp;
+
+use Koine\Mvc\Controller;
+
+class HelloWorldController extends Controller
+{
+    public function beforeAction()
+    {
+        // do something, like check for logged user
+        $this->getRequest()->getSession();
+
+        if ($session['user_id']) {
+            throw new \MyApp\AccessDeniedException("User is not logged");
+        }
+    }
+
+    public function sayHello()
+    {
+        $this->render->('my_app/hello_world', array(
+            'message' => 'Hello World!'
+        ));
+
+        // or
+
+        $this->getResponse()->setBody('Hello World!');
+    }
+}
+```
+
+The view;
+
+```phtml
+<!-- views/hello_word -->
+<p><?= $message ?></p>
 ```
 
 ### Installing
