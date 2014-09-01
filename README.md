@@ -87,6 +87,11 @@ class HelloWorldController extends Controller
 
         $this->getResponse()->setBody('Hello World!');
     }
+
+    public function redirectToHome()
+    {
+        $this->getResponse()->redirectTo('/');
+    }
 }
 ```
 
@@ -95,6 +100,49 @@ The view;
 ```phtml
 <!-- views/hello_word -->
 <p><?= $message ?></p>
+```
+
+### Testing
+```php
+
+namespace MyAppTests;
+
+use Koine\Test\Mvc\ControllerTestCase;
+
+class HelloWordControllerTest extends ControllerTestCase
+{
+    public function testSayHelloWhenUserIsLoggedIn()
+    {
+        $session = array('user_id');
+        $params = array();
+
+        $this->getRequest('sayHello', $params, $session);
+        $this->assertResponseCode(200);
+    }
+
+    /**
+     * @expectedException MyApp\AccessDenied
+     */
+    public function testThrowsExceptionWhenUserIsNotLoggedIn()
+    {
+        $this->getRequest('sayHello', $params, $session);
+    }
+
+    protected function testRedirectsToHome()
+    {
+        $this->getRequest('rediresctsToHome');
+
+        $this->assertResponseIsRedirect();
+        $this->assertResponseRedirectsTo('/');
+
+        // or
+
+        $this->assertTrue($this->getResponse()->isRedirect());
+        $headers = $this->getResponse()->getHeaders();
+        $this->assertEquals('Location: /', $headers['Location']);
+    }
+}
+
 ```
 
 ### Installing
