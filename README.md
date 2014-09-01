@@ -28,8 +28,6 @@ Package information:
 $env     = new \Koine\Http\Environment($_SERVER);
 $cookies = new \Koine\Http\Cookies($_COOKIE);
 $session = new \Koine\Http\Session($_SESSION);
-$post    = new \Koine\Http\Params($_POST);
-$get     = new \Koine\Http\Params($_GET);
 $params  = new \Koine\Http\Params($_REQUEST);
 
 $request = new \Koine\Http\Request(array(
