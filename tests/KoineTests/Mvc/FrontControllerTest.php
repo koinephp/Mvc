@@ -50,6 +50,18 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function canSetAndGetResponse()
+    {
+        $expected = new Response();
+
+        $response = $this->object->setResponse($expected)->getResponse();
+
+        $this->assertSame($expected, $response);
+    }
+
+    /**
+     * @test
+     */
     public function canSetAndGetRequest()
     {
         $expected = $this->getRequest();
@@ -94,6 +106,27 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             'Koine\Http\Response',
             $controller->getResponse()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function whenResponseIsSetTheControllerResponseIsThatSameResponse()
+    {
+        $frontController = new FrontController();
+
+        $view = $this->getMock('Koine\Mvc\View');
+        $request = $this->getRequest();
+        $response = new Response();
+
+        $frontController->setControllerClass('Dummy\DemoController')
+            ->setView($view)
+            ->setResponse($response)
+            ->setRequest($request);
+
+        $controller = $frontController->factoryController();
+
+        $this->assertSame($response, $controller->getResponse());
     }
 
     public function getRequest()

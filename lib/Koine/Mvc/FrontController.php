@@ -2,8 +2,8 @@
 
 namespace Koine\Mvc;
 
-use Koine\Http\Request;
 use Koine\Http\Response;
+use Koine\Http\Request;
 
 /**
  * @author Marcelo Jacobus <marcelo.jacobus@gmail.com>
@@ -25,6 +25,11 @@ class FrontController
      * @var Request
      */
     protected $request;
+
+    /**
+     * @var Response
+     */
+    protected $response;
 
     /**
      * @var View
@@ -79,6 +84,26 @@ class FrontController
     }
 
     /**
+     * @param Response $response
+     */
+    public function setResponse(Response $response)
+    {
+        $this->response = $response;
+
+        return $this;
+    }
+
+    /**
+     * Get the request
+     *
+     * @return Response
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
      * @param Request $request
      */
     public function setRequest(Request $request)
@@ -128,7 +153,11 @@ class FrontController
     {
         $class      = $this->getControllerClass();
         $controller = new $class;
-        $response   = new Response();
+        $response   = $this->getResponse();
+
+        if (!$response) {
+            $response   = new Response();
+        }
 
         $controller->setView($this->getView())
             ->setResponse($response)
