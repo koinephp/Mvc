@@ -39,13 +39,12 @@ $request = new \Koine\Http\Request(array(
 
 // set view
 $view = new \Koine\Mvc\View();
-$view->getConfig()
-  ->addPath(__DIR__ . '/views');
+$view->getConfig()->addPath(__DIR__ . '/views');
 
 // set front controller
 $frontController = new \Koine\Mvc\FrontController();
 $frontController->setRequest($request)
-    ->setController('MyApp\HelloWord') // Will resolve to MyApp\HelloWorldController
+    ->setController('MyApp\HelloWordController')
     ->setAction('sayHello')
     ->setView($view);
 
