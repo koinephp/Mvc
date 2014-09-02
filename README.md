@@ -39,7 +39,8 @@ $request = new \Koine\Http\Request(array(
 
 // set view
 $view = new \Koine\Mvc\View();
-$view->addPath(__DIR__ . '/views');
+$view->getConfig()
+  ->addPath(__DIR__ . '/views');
 
 // set front controller
 $frontController = new \Koine\Mvc\FrontController();
