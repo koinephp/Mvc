@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "104d6e595e7b46ae42a617a6b4f8eebe",
+    "hash": "df958e45975884fb7659e98fd5e16125",
     "packages": [
         {
             "name": "koine/core",
@@ -132,6 +132,44 @@
             ],
             "description": "Simple View renderer",
             "time": "2014-08-27 14:27:46"
+        },
+        {
+            "name": "nurse/di",
+            "version": "0.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mjacobus/nurse.git",
+                "reference": "14193e7a23773f62de24ec7ede045c700105155c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mjacobus/nurse/zipball/14193e7a23773f62de24ec7ede045c700105155c",
+                "reference": "14193e7a23773f62de24ec7ede045c700105155c",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Nurse\\": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcelo Jacobus",
+                    "email": "marcelo.jacobus@gmail.com"
+                }
+            ],
+            "description": "Dependency injection library",
+            "homepage": "https://github.com/mjacobus/nurse",
+            "time": "2014-08-19 18:04:37"
         }
     ],
     "packages-dev": [

@@ -4,6 +4,7 @@ namespace Koine\Mvc;
 
 use Koine\Http\Response;
 use Koine\Http\Request;
+use Nurse\Container;
 
 /**
  * @author Marcelo Jacobus <marcelo.jacobus@gmail.com>
@@ -35,6 +36,11 @@ class FrontController
      * @var View
      */
     protected $view;
+
+    /**
+     * @var Container
+     */
+    protected $dependencyContainer;
 
     /**
      * Set the controller class
@@ -163,6 +169,29 @@ class FrontController
     }
 
     /**
+     * Set the application dependency container
+     *
+     * @param  Container $container
+     * @return self
+     */
+    public function setDependencyContainer(Container $container)
+    {
+        $this->dependencyContainer = $container;
+
+        return $this;
+    }
+
+    /**
+     * Get the application dependency container
+     *
+     * @return Container
+     */
+    public function getDependencyContainer()
+    {
+        return $this->dependencyContainer;
+    }
+
+    /**
      * @return Controler
      */
     public function factoryController()
@@ -185,6 +214,7 @@ class FrontController
 
         $controller->setView($this->getView())
             ->setResponse($response)
+            ->setDependencyContainer($this->getDependencyContainer())
             ->setRequest($this->getRequest());
 
         return $controller;

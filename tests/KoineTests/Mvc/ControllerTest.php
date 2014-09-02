@@ -11,6 +11,7 @@ use Koine\Http\Session;
 use Koine\Http\Cookies;
 use Koine\Http\Params;
 use Koine\Http\Environment;
+use Nurse\Di;
 
 /**
  * @author Marcelo Jacobus <marcelo.jacobus@gmail.com>
@@ -69,6 +70,20 @@ class ControllerTest extends PHPUnit_Framework_TestCase
         $expected = new View();
         $view = $this->object->setView($expected)->getView();
         $this->assertSame($expected, $view);
+    }
+
+    /**
+     * @test
+     */
+    public function canSetAndGetDependencyContainer()
+    {
+        $expected = Di::getInstance()->getContainer();
+
+        $container = $this->object
+            ->setDependencyContainer($expected)
+            ->getDependencyContainer();
+
+        $this->assertSame($expected, $container);
     }
 
     /**

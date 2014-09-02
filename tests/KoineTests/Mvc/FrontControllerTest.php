@@ -12,6 +12,7 @@ use Koine\Http\Session;
 use Koine\Http\Cookies;
 use Koine\Http\Params;
 use Koine\Http\Environment;
+use Nurse\Di;
 
 /**
  * @author Marcelo Jacobus <marcelo.jacobus@gmail.com>
@@ -83,6 +84,32 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException Koine\Mvc\Exceptions\ControllerNotFoundException
+     * @expectedExceptionMessage Could not load class 'Dummy\UndefinedController'
+     */
+    public function throwsExceptionWhenControllerDoesNotExist()
+    {
+        $this->setupFrontController()
+            ->setControllerClass('Dummy\UndefinedController')
+            ->execute();
+    }
+
+    /**
+     * @test
+     */
+    public function canSetAndGetDependencyContainer()
+    {
+        $expected = Di::getInstance()->getContainer();
+
+        $container = $this->object
+            ->setDependencyContainer($expected)
+            ->getDependencyContainer();
+
+        $this->assertSame($expected, $container);
+    }
+
+    /**
+     * @test
      */
     public function canFactoryControllerWithAllTheNecessaryProperties()
     {
@@ -90,9 +117,11 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
 
         $view = $this->getMock('Koine\Mvc\View');
         $request = $this->getRequest();
+        $container = Di::getInstance()->getContainer();
 
         $frontController->setControllerClass('Dummy\DemoController')
             ->setView($view)
+            ->setDependencyContainer($container)
             ->setRequest($request);
 
         $controller = $frontController->factoryController();
@@ -101,6 +130,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame($view, $controller->getView());
         $this->assertSame($request, $controller->getRequest());
+        $this->assertSame($container, $controller->getDependencyContainer());
 
         $this->assertInstanceOf(
             'Koine\Http\Response',
@@ -122,6 +152,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $frontController->setControllerClass('Dummy\DemoController')
             ->setView($view)
             ->setResponse($response)
+            ->setDependencyContainer(Di::getInstance()->getContainer())
             ->setRequest($request);
 
         $controller = $frontController->factoryController();
@@ -154,6 +185,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $this->object->setRequest($request)
             ->setResponse(new Response())
             ->setControllerClass('Dummy\DemoController')
+            ->setDependencyContainer(Di::getInstance()->getContainer())
             ->setView(new View())
             ->setAction('test');
 
@@ -196,17 +228,5 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     public function throwsExceptionWhenActionDoesNotExist()
     {
         $this->setupFrontController()->setAction('undefined')->execute();
-    }
-
-    /**
-     * @test
-     * @expectedException Koine\Mvc\Exceptions\ControllerNotFoundException
-     * @expectedExceptionMessage Could not load class 'Dummy\UndefinedController'
-     */
-    public function throwsExceptionWhenControllerDoesNotExist()
-    {
-        $this->setupFrontController()
-            ->setControllerClass('Dummy\UndefinedController')
-            ->execute();
     }
 }

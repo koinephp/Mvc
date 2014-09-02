@@ -11,7 +11,8 @@
     "require": {
         "php" : ">=5.3.3",
         "koine/http" : "0.9.*",
-        "koine/view" : "0.9.*"
+        "koine/view" : "0.9.*",
+        "nurse/di": "0.9.*"
     },
     "require-dev": {
         "phpunit/phpunit": "*",

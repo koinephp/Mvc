@@ -5,6 +5,7 @@ namespace Koine\Mvc;
 use Koine\Object;
 use Koine\Http\Request;
 use Koine\Http\Response;
+use Nurse\Container;
 
 /**
  * @author Marcelo Jacobus <marcelo.jacobus@gmail.com>
@@ -26,6 +27,11 @@ class Controller extends Object
      * @var View
      */
     protected $view;
+
+    /**
+     * @var Container
+     */
+    protected $dependencyContainer;
 
     /**
      * Method run before the real action
@@ -107,6 +113,29 @@ class Controller extends Object
     public function getView()
     {
         return $this->view;
+    }
+
+    /**
+     * Set the application dependency container
+     *
+     * @param  Container $container
+     * @return self
+     */
+    public function setDependencyContainer(Container $container)
+    {
+        $this->dependencyContainer = $container;
+
+        return $this;
+    }
+
+    /**
+     * Get the application dependency container
+     *
+     * @return Container
+     */
+    public function getDependencyContainer()
+    {
+        return $this->dependencyContainer;
     }
 
     /**
