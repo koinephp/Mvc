@@ -2,8 +2,16 @@
 
 namespace KonieTests\Mvc;
 
-use Koine\Mvc\FrontController;
 use PHPUnit_Framework_TestCase;
+use Koine\Mvc\FrontController;
+use Koine\Mvc\View;
+use Koine\Mvc\Controller;
+use Koine\Http\Request;
+use Koine\Http\Response;
+use Koine\Http\Session;
+use Koine\Http\Cookies;
+use Koine\Http\Params;
+use Koine\Http\Environment;
 
 /**
  * @author Marcelo Jacobus <marcelo.jacobus@gmail.com>
@@ -20,8 +28,83 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function canBeInstantiated()
+    public function canSetAndGetControllerClass()
     {
-        $this->assertInstanceOf('Koine\Mvc\FrontController', $this->object);
+        $class = $this->object->setControllerClass('Class')
+            ->getControllerClass();
+
+        $this->assertEquals('Class', $class);
+    }
+
+    /**
+     * @test
+     */
+    public function canSetAndGetControllerAction()
+    {
+        $action = $this->object->setAction('action')
+            ->getAction();
+
+        $this->assertEquals('action', $action);
+    }
+
+    /**
+     * @test
+     */
+    public function canSetAndGetRequest()
+    {
+        $expected = $this->getRequest();
+
+        $request = $this->object->setRequest($expected)->getRequest();
+
+        $this->assertSame($expected, $request);
+    }
+
+    /**
+     * @test
+     */
+    public function canGetAndSetView()
+    {
+        $expected = new View();
+        $view = $this->object->setView($expected)->getView();
+        $this->assertSame($expected, $view);
+    }
+
+    /**
+     * @test
+     */
+    public function canFactoryControllerWithAllTheNecessaryProperties()
+    {
+        $frontController = new FrontController();
+
+        $view = $this->getMock('Koine\Mvc\View');
+        $request = $this->getRequest();
+
+        $frontController->setControllerClass('Dummy\DemoController')
+            ->setView($view)
+            ->setRequest($request);
+
+        $controller = $frontController->factoryController();
+
+        $this->assertInstanceOf('Dummy\DemoController', $controller);
+
+        $this->assertSame($view, $controller->getView());
+        $this->assertSame($request, $controller->getRequest());
+
+        $this->assertInstanceOf(
+            'Koine\Http\Response',
+            $controller->getResponse()
+        );
+    }
+
+    public function getRequest()
+    {
+        $params = array();
+
+        return new Request(array(
+            'session'     => new Session($params),
+            'environment' => new Environment($params),
+            'cookies'     => new Cookies($params),
+            'params'      => new Params($params),
+        ));
     }
 }
