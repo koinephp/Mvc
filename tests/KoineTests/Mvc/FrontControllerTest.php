@@ -129,7 +129,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $this->assertSame($response, $controller->getResponse());
     }
 
-    public function getRequest()
+    public function getRequest($mock = true)
     {
         $params = array();
 
@@ -140,6 +140,73 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             'params'      => new Params($params),
         );
 
-        return $this->getMock('Koine\Http\Request', null, array($options));
+        if ($mock) {
+            return $this->getMock('Koine\Http\Request', null, array($options));
+        } else {
+            return new Request($options);
+        }
+    }
+
+    protected function setUpFrontController()
+    {
+        $request = $this->getRequest(false);
+
+        $this->object->setRequest($request)
+            ->setResponse(new Response())
+            ->setControllerClass('Dummy\DemoController')
+            ->setView(new View())
+            ->setAction('test');
+
+        return $this->object;
+    }
+
+    /**
+     * @test
+     */
+    public function executeExecutesTheBeforeActionAndThenTheActionAndThenTheAfterAction()
+    {
+        $this->setUpFrontController()->execute();
+        $request = $this->object->getRequest();
+
+        $methods = array(
+            'Dummy\DemoController::beforeAction',
+            'Dummy\DemoController::test',
+            'Dummy\DemoController::afterAction'
+        );
+
+        $this->assertEquals($methods, $request->getParams()->toArray());
+    }
+
+    /**
+     * @test
+     */
+    public function executeReturnsTheResponse()
+    {
+        $response = $this->setUpFrontController()->execute();
+        $expected = $this->object->getResponse();
+
+        $this->assertSame($expected, $response);
+    }
+
+    /**
+     * @test
+     * @expectedException Koine\Mvc\Exceptions\ActionNotFoundException
+     * @expectedExceptionMessage Action 'Dummy\DemoController::undefined' was not defined
+     */
+    public function throwsExceptionWhenActionDoesNotExist()
+    {
+        $this->setupFrontController()->setAction('undefined')->execute();
+    }
+
+    /**
+     * @test
+     * @expectedException Koine\Mvc\Exceptions\ControllerNotFoundException
+     * @expectedExceptionMessage Could not load class 'Dummy\UndefinedController'
+     */
+    public function throwsExceptionWhenControllerDoesNotExist()
+    {
+        $this->setupFrontController()
+            ->setControllerClass('Dummy\UndefinedController')
+            ->execute();
     }
 }

@@ -9,4 +9,24 @@ use Koine\Mvc\Controller;
  */
 class DemoController extends Controller
 {
+    public function beforeAction()
+    {
+        $this->registerAction(__METHOD__);
+    }
+
+    public function test()
+    {
+        $this->registerAction(__METHOD__);
+    }
+
+    public function afterAction()
+    {
+        $this->registerAction(__METHOD__);
+    }
+
+    protected function registerAction($method)
+    {
+        $params   = $this->getRequest()->getParams();
+        $params[] = $method;
+    }
 }

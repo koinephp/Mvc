@@ -80,7 +80,23 @@ class FrontController
 
     public function execute()
     {
+        $controller = $this->factoryController();
 
+        $action = $this->getAction();
+
+        if (!$controller->respondTo($action)) {
+            throw new Exceptions\ActionNotFoundException(sprintf(
+                "Action '%s::%s' was not defined",
+                $controller->getClass(),
+                $action
+            ));
+        }
+
+        $controller->beforeAction();
+        $controller->send($action);
+        $controller->afterAction();
+
+        return $controller->getResponse();
     }
 
     /**
@@ -151,7 +167,15 @@ class FrontController
      */
     public function factoryController()
     {
-        $class      = $this->getControllerClass();
+        $class = $this->getControllerClass();
+
+        if (!class_exists($class)) {
+            throw new Exceptions\ControllerNotFoundException(sprintf(
+                "Could not load class '%s'",
+                $class
+            ));
+        }
+
         $controller = new $class;
         $response   = $this->getResponse();
 
