@@ -180,7 +180,7 @@ class FrontController
         $response   = $this->getResponse();
 
         if (!$response) {
-            $response   = new Response();
+            $response = new Response();
         }
 
         $controller->setView($this->getView())
