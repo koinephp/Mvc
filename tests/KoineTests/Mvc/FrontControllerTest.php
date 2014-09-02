@@ -100,11 +100,13 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     {
         $params = array();
 
-        return new Request(array(
+        $options = array(
             'session'     => new Session($params),
             'environment' => new Environment($params),
             'cookies'     => new Cookies($params),
             'params'      => new Params($params),
-        ));
+        );
+
+        return $this->getMock('Koine\Http\Request', null, array($options));
     }
 }
