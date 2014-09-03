@@ -154,7 +154,7 @@ Append the lib to your requirements key in your composer.json.
     // [..]
     require: {
         // append this line to your requirements
-        "koine/mvc": "dev-master"
+        "koine/mvc": "0.9.*"
     }
 }
 ```
