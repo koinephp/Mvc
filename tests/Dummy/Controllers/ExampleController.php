@@ -11,7 +11,15 @@ class ExampleController extends Controller
 {
     public function userHello()
     {
-        $headers = $this->getResponse()->getHeaders();
-        $this->getResponse()->redirectTo("/");
+        $userId = $this->getRequest()->getSession()->offsetGet('user_id');
+
+        if ($userId) {
+            $method = $this->getRequest()->getMethod();
+            $body = "Method: $method UserId: $userId";
+            $this->getResponse()->setBody($body);
+        } else {
+            $headers = $this->getResponse()->getHeaders();
+            $this->getResponse()->redirectTo("/");
+        }
     }
 }

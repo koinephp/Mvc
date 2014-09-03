@@ -67,21 +67,29 @@ class ControllerTestCase extends PHPUnit_Framework_TestCase
 
     public function assertResponseRedirectsTo($url, $statusCode = 302)
     {
-        $this->assertEquals(
-            $statusCode,
-            $this->getResponse()->getStatusCode(),
-            "Failed asserting that response status code is '$statusCode'"
-        );
+        $this->assertResponseStatusCode(302);
 
-        $headers = $this->getResponse()->getHeaders();
-        $header = (string) $headers['Location'];
-        $actual = str_replace('Location: ', '', $header);
+        $actual = $this->getResponse()->getRedirectUrl();
 
         $this->assertEquals(
             $actual,
             $url,
             "Failed asserting that redirect '$actual' is '$url' "
         );
+    }
+
+    public function assertResponseStatusCode($code)
+    {
+        $this->assertEquals(
+            $code,
+            $this->getResponse()->getStatusCode(),
+            "Failed asserting that response status code is '$code'"
+        );
+    }
+
+    public function assertResponseOk()
+    {
+        $this->assertResponseStatusCode(200);
     }
 
     public function makeRequest(

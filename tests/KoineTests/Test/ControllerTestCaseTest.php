@@ -19,4 +19,20 @@ class ControllerTestCaseTest extends ControllerTestCase
         $this->makeRequest('GET', 'userHello');
         $this->assertResponseRedirectsTo('/');
     }
+
+    /**
+     * @test
+     */
+    public function canTestMethodAndParams()
+    {
+        $this->makeRequest(
+            'POST', 'userHello',
+            array('name' => 'Jon'),
+            array('user_id' => 1)
+        );
+
+        $expectation = "Method: POST UserId: 1";
+        $this->assertResponseOk();
+        $this->assertEquals($expectation, $this->getResponse()->getBody());
+    }
 }
