@@ -12,7 +12,6 @@ class ExampleController extends Controller
     public function userHello()
     {
         $headers = $this->getResponse()->getHeaders();
-        $this->getResponse()->setStatusCode(302);
-        $headers['Location'] = '/';
+        $this->getResponse()->redirectTo("/");
     }
 }

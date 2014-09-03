@@ -49,16 +49,16 @@
         },
         {
             "name": "koine/http",
-            "version": "0.9.0",
+            "version": "0.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/koinephp/Http.git",
-                "reference": "d152388421b54345dabae05e1be6f30374cd2fc3"
+                "reference": "2a9295276fa2d6f59a5cf7e886ef3a63bdf0a164"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/koinephp/Http/zipball/d152388421b54345dabae05e1be6f30374cd2fc3",
-                "reference": "d152388421b54345dabae05e1be6f30374cd2fc3",
+                "url": "https://api.github.com/repos/koinephp/Http/zipball/2a9295276fa2d6f59a5cf7e886ef3a63bdf0a164",
+                "reference": "2a9295276fa2d6f59a5cf7e886ef3a63bdf0a164",
                 "shasum": ""
             },
             "require": {
@@ -86,7 +86,7 @@
                 }
             ],
             "description": "Http objects for handling requests and responses",
-            "time": "2014-09-01 18:47:14"
+            "time": "2014-09-03 01:40:36"
         },
         {
             "name": "koine/view",
