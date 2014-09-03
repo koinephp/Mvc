@@ -1,6 +1,6 @@
 <?php
 
-namespace Dummy;
+namespace Dummy\Controllers;
 
 use Koine\Mvc\Controller;
 

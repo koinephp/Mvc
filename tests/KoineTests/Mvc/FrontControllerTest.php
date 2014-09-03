@@ -119,14 +119,14 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $request = $this->getRequest();
         $container = Di::getInstance()->getContainer();
 
-        $frontController->setControllerClass('Dummy\DemoController')
+        $frontController->setControllerClass('Dummy\Controllers\DemoController')
             ->setView($view)
             ->setDependencyContainer($container)
             ->setRequest($request);
 
         $controller = $frontController->factoryController();
 
-        $this->assertInstanceOf('Dummy\DemoController', $controller);
+        $this->assertInstanceOf('Dummy\Controllers\DemoController', $controller);
 
         $this->assertSame($view, $controller->getView());
         $this->assertSame($request, $controller->getRequest());
@@ -149,7 +149,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $request = $this->getRequest();
         $response = new Response();
 
-        $frontController->setControllerClass('Dummy\DemoController')
+        $frontController->setControllerClass('Dummy\Controllers\DemoController')
             ->setView($view)
             ->setResponse($response)
             ->setDependencyContainer(Di::getInstance()->getContainer())
@@ -184,7 +184,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
 
         $this->object->setRequest($request)
             ->setResponse(new Response())
-            ->setControllerClass('Dummy\DemoController')
+            ->setControllerClass('Dummy\Controllers\DemoController')
             ->setDependencyContainer(Di::getInstance()->getContainer())
             ->setView(new View())
             ->setAction('test');
@@ -201,9 +201,9 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
         $request = $this->object->getRequest();
 
         $methods = array(
-            'Dummy\DemoController::beforeAction',
-            'Dummy\DemoController::test',
-            'Dummy\DemoController::afterAction'
+            'Dummy\Controllers\DemoController::beforeAction',
+            'Dummy\Controllers\DemoController::test',
+            'Dummy\Controllers\DemoController::afterAction'
         );
 
         $this->assertEquals($methods, $request->getParams()->toArray());
@@ -223,7 +223,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException Koine\Mvc\Exceptions\ActionNotFoundException
-     * @expectedExceptionMessage Action 'Dummy\DemoController::undefined' was not defined
+     * @expectedExceptionMessage Action 'Dummy\Controllers\DemoController::undefined' was not defined
      */
     public function throwsExceptionWhenActionDoesNotExist()
     {
