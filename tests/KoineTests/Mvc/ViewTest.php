@@ -17,20 +17,19 @@ class ViewTester extends View
     }
 }
 
+class Helper extends View
+{
+    public function sayHello($name, $lastName)
+    {
+        return "Hello $name $lastName";
+    }
+}
+
 /**
  * @author Marcelo Jacobus <marcelo.jacobus@gmail.com>
  */
 class ViewTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @test
-     */
-    public function itInstanciatesAViewRenderer()
-    {
-        $view = new View();
-
-        $this->assertInstanceOf('Koine\View\Renderer', $view->getRenderer());
-    }
 
     /**
      * @test
@@ -58,17 +57,18 @@ class ViewTest extends PHPUnit_Framework_TestCase
      */
     public function rendersWithNoLayout()
     {
-        $config = new Config;
-        $mock   = $this->getMock('Koine\View\Renderer', array(), array($config));
+        $view = new View();
+        $view->getConfig()
+            ->setHelper('helper', new Helper())
+            ->addPath($this->getFixtruesPath());
 
-        $params = array('foo' => 'bar');
+        $actual = $view->render('view', array(
+            'name'     => 'Jon',
+            'lastName' => 'Doe',
+        ));
 
-        $mock->expects($this->once())
-            ->method('render')
-            ->with('foo', $params);
-
-        $view   = new ViewTester($mock);
-        $view->render('foo', $params);
+        $expected = "<p>Hello Jon Doe</p>\n";
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -76,22 +76,24 @@ class ViewTest extends PHPUnit_Framework_TestCase
      */
     public function rendersWithLayout()
     {
-        $config = new Config;
-        $renderer = $this->getMock('Koine\View\Renderer', array(), array($config));
 
-        $expectedParams = array(
-            'view' => 'foo',
-            'foo'  => 'bar',
-            'localVariables' => array(
-                'foo'  => 'bar',
-            )
-        );
+        $view = new View();
+        $view->getConfig()
+            ->setHelper('helper', new Helper())
+            ->addPath($this->getFixtruesPath());
 
-        $renderer->expects($this->once())
-            ->method('render')
-            ->with('foo_layout', $expectedParams);
+        $actual = $view->setLayout('layout')->render('view', array(
+            'name'     => 'Jon',
+            'lastName' => 'Doe',
+        ));
 
-        $view = new ViewTester($renderer);
-        $view->setLayout('foo_layout')->render('foo', array('foo' => 'bar'));
+        $expected = "<h1>Doe</h1>\n<p>Hello Jon Doe</p>\n";
+        $this->assertEquals($expected, $actual);
+        $this->assertEquals('layout', $view->getLayout());
+    }
+
+    public function getFixtruesPath()
+    {
+        return dirname(__FILE__) . '/../../fixtures';
     }
 }

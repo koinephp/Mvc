@@ -8,48 +8,21 @@ use Koine\View\Renderer;
 /**
  * @author Marcelo Jacobus <marcelo.jacobus@gmail.com>
  */
-class View
+class View extends Renderer
 {
-
-    /**
-     * @var Renderer
-     */
-    protected $renderer;
-
-    /**
-     * @var Config
-     */
-    protected $config;
-
     /**
      * @var string
      */
     protected $layout;
 
+    /**
+     * @var string
+     */
+    protected $lastLayout;
+
     public function __construct()
     {
-        $this->config   = new Config();
-        $this->renderer = new Renderer($this->config);
-    }
-
-    /**
-     * Get the view renderer
-     *
-     * @return Renderer
-     */
-    public function getRenderer()
-    {
-        return $this->renderer;
-    }
-
-    /**
-     * Get the renderer config
-     *
-     * @return Config
-     */
-    public function getConfig()
-    {
-        return $this->config;
+        parent::__construct(new Config());
     }
 
     /**
@@ -89,8 +62,12 @@ class View
             $localVariables['localVariables'] = $localVariables;
             $localVariables['view'] = $templateName;
             $templateName = $layout;
+            $this->lastLayout = $layout;
+            $this->setLayout(null);
+        } else {
+            $this->setLayout($this->lastLayout);
         }
 
-        return $this->getRenderer()->render($templateName, $localVariables);
+        return parent::render($templateName, $localVariables);
     }
 }
