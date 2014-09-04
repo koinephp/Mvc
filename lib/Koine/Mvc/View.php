@@ -86,6 +86,7 @@ class View
         $layout = $this->getLayout();
 
         if ($layout) {
+            $localVariables['localVariables'] = $localVariables;
             $localVariables['view'] = $templateName;
             $templateName = $layout;
         }

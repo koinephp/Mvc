@@ -77,7 +77,9 @@ class HelloWorldController extends Controller
 
     public function sayHello()
     {
-        $this->render->('my_app/hello_world', array(
+        $this->view->setLayout('layouts/application');
+
+        $this->render->('hello_world/say_hello', array(
             'message' => 'Hello World!'
         ));
 
@@ -93,10 +95,22 @@ class HelloWorldController extends Controller
 }
 ```
 
+The layout:
+
+```phtml
+<!-- layouts/application.phtml -->
+<h1>Some Layout!</h1>
+
+<?= $this->render($view, $localVariables) ?>
+```
+
+Note that in order to render the view in the layout you **MUST** pass the ```$localVariables``` 
+variable in order to make them available in the view
+
 The view;
 
 ```phtml
-<!-- views/hello_word -->
+<!-- hello_word.phtml -->
 <p><?= $message ?></p>
 ```
 

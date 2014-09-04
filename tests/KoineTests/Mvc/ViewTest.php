@@ -77,18 +77,21 @@ class ViewTest extends PHPUnit_Framework_TestCase
     public function rendersWithLayout()
     {
         $config = new Config;
-        $mock   = $this->getMock('Koine\View\Renderer', array(), array($config));
+        $renderer = $this->getMock('Koine\View\Renderer', array(), array($config));
 
         $expectedParams = array(
             'view' => 'foo',
-            'foo'  => 'bar'
+            'foo'  => 'bar',
+            'localVariables' => array(
+                'foo'  => 'bar',
+            )
         );
 
-        $mock->expects($this->once())
+        $renderer->expects($this->once())
             ->method('render')
             ->with('foo_layout', $expectedParams);
 
-        $view = new ViewTester($mock);
+        $view = new ViewTester($renderer);
         $view->setLayout('foo_layout')->render('foo', array('foo' => 'bar'));
     }
 }
