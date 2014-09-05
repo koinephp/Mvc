@@ -90,16 +90,16 @@
         },
         {
             "name": "koine/view",
-            "version": "0.9.5",
+            "version": "0.9.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/koinephp/View.git",
-                "reference": "d1c5002d1f9eaa7b0cd65baffd4476612a77a0d6"
+                "reference": "e947cfb55fbe247670ddea11c3863eb091dfaea0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/koinephp/View/zipball/d1c5002d1f9eaa7b0cd65baffd4476612a77a0d6",
-                "reference": "d1c5002d1f9eaa7b0cd65baffd4476612a77a0d6",
+                "url": "https://api.github.com/repos/koinephp/View/zipball/e947cfb55fbe247670ddea11c3863eb091dfaea0",
+                "reference": "e947cfb55fbe247670ddea11c3863eb091dfaea0",
                 "shasum": ""
             },
             "require": {
@@ -134,7 +134,7 @@
                 }
             ],
             "description": "Simple View renderer",
-            "time": "2014-09-05 13:36:47"
+            "time": "2014-09-05 17:34:59"
         },
         {
             "name": "nurse/di",
