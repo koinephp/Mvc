@@ -146,7 +146,14 @@ class Controller extends Object
      */
     public function render($template, array $localVariables = array())
     {
-        $content = $this->getView()->render($template, $localVariables);
+        $view = $this->getView();
+
+        if ($view->getLayout()) {
+            $content = $view->renderWithLayout($template, $localVariables);
+        } else {
+            $content = $view->render($template, $localVariables);
+        }
+
         $this->getResponse()->setBody($content);
 
         return $this;

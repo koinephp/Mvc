@@ -48,26 +48,18 @@ class View extends Renderer
     }
 
     /**
-     * Render a template
+     * Renders with layout
      *
-     * @param  string $file
-     * @param  array  $localVariables
-     * @return string
+     * @param string $template
+     * @param array $localVariables
      */
-    public function render($templateName, array $localVariables = array())
+    public function renderWithLayout($template, array $localVariables = array())
     {
-        $layout = $this->getLayout();
+        $this->addData(array(
+            'localVariables' => $localVariables,
+            'view'           => $template,
+        ));
 
-        if ($layout) {
-            $localVariables['localVariables'] = $localVariables;
-            $localVariables['view'] = $templateName;
-            $templateName = $layout;
-            $this->lastLayout = $layout;
-            $this->setLayout(null);
-        } else {
-            $this->setLayout($this->lastLayout);
-        }
-
-        return parent::render($templateName, $localVariables);
+        return $this->render($this->getLayout(), $localVariables);
     }
 }

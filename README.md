@@ -101,10 +101,10 @@ The layout:
 <!-- layouts/application.phtml -->
 <h1>Some Layout!</h1>
 
-<?= $this->render($view, $localVariables) ?>
+<?= $this->render($this->view, $this->localVariables) ?>
 ```
 
-Note that in order to render the view in the layout you **MUST** pass the ```$localVariables``` 
+Note that in order to render the view in the layout you **MUST** pass the ```$this->view``` and the ```$this->localVariables```
 variable in order to make them available in the view
 
 The view;

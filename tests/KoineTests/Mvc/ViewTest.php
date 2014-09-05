@@ -82,12 +82,12 @@ class ViewTest extends PHPUnit_Framework_TestCase
             ->setHelper('helper', new Helper())
             ->addPath($this->getFixtruesPath());
 
-        $actual = $view->setLayout('layout')->render('view', array(
+        $actual = $view->setLayout('layout')->renderWithLayout('view', array(
             'name'     => 'Jon',
             'lastName' => 'Doe',
         ));
 
-        $expected = "<h1>Doe</h1>\n<p>Hello Jon Doe</p>\n";
+        $expected = "<h1>Doe</h1>\n<p>Hello Jon Doe</p>\n<p>Hello Jon Doe</p>\n";
         $this->assertEquals($expected, $actual);
         $this->assertEquals('layout', $view->getLayout());
     }
