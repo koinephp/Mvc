@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "df958e45975884fb7659e98fd5e16125",
+    "hash": "b77b85687a420684a30435e306beef59",
     "packages": [
         {
             "name": "koine/core",
@@ -90,16 +90,16 @@
         },
         {
             "name": "koine/view",
-            "version": "0.9.2",
+            "version": "0.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/koinephp/View.git",
-                "reference": "a47afbc45ee9534daa34008a991a8f3613aa0e9f"
+                "reference": "d1c5002d1f9eaa7b0cd65baffd4476612a77a0d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/koinephp/View/zipball/a47afbc45ee9534daa34008a991a8f3613aa0e9f",
-                "reference": "a47afbc45ee9534daa34008a991a8f3613aa0e9f",
+                "url": "https://api.github.com/repos/koinephp/View/zipball/d1c5002d1f9eaa7b0cd65baffd4476612a77a0d6",
+                "reference": "d1c5002d1f9eaa7b0cd65baffd4476612a77a0d6",
                 "shasum": ""
             },
             "require": {
@@ -134,7 +134,7 @@
                 }
             ],
             "description": "Simple View renderer",
-            "time": "2014-09-04 13:38:43"
+            "time": "2014-09-05 13:36:47"
         },
         {
             "name": "nurse/di",
