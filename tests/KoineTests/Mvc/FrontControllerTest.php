@@ -125,6 +125,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->setRequest($request);
 
         $controller = $frontController->factoryController();
+        $frontController->prepareController($controller);
 
         $this->assertInstanceOf('Dummy\Controllers\DemoController', $controller);
 
@@ -156,6 +157,7 @@ class FrontControllerTest extends PHPUnit_Framework_TestCase
             ->setRequest($request);
 
         $controller = $frontController->factoryController();
+        $frontController->prepareController($controller);
 
         $this->assertSame($response, $controller->getResponse());
     }

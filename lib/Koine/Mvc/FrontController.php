@@ -33,6 +33,11 @@ class FrontController
     protected $response;
 
     /**
+     * @var Controller
+     */
+    protected $controller;
+
+    /**
      * @var View
      */
     protected $view;
@@ -53,6 +58,26 @@ class FrontController
         $this->controllerClass = $class;
 
         return $this;
+    }
+
+    /**
+     * Set up controller
+     * @param  Controller $controller
+     * @return self
+     */
+    public function setController(Controller $controller)
+    {
+        $this->controller = $controller;
+
+        return $this;
+    }
+
+    /**
+     * @return Controller
+     */
+    public function getController()
+    {
+        return $this->controller;
     }
 
     /**
@@ -84,9 +109,22 @@ class FrontController
         return $this->action;
     }
 
+    /**
+     * If the controller was not manually set, it instanciates it with the
+     * provided controller class
+     *
+     * @return Response
+     */
     public function execute()
     {
-        $controller = $this->factoryController();
+        $controller = $this->getController();
+
+        if (!$controller) {
+            $controller = $this->factoryController();
+            $this->setController($controller);
+        }
+
+        $this->prepareController($controller);
 
         $action = $this->getAction();
 
@@ -205,7 +243,15 @@ class FrontController
             ));
         }
 
-        $controller = new $class;
+        return new $class;
+    }
+
+    /**
+     * Set data to the controller
+     * @param Controller
+     */
+    public function prepareController($controller)
+    {
         $response   = $this->getResponse();
 
         if (!$response) {
@@ -216,7 +262,5 @@ class FrontController
             ->setResponse($response)
             ->setDependencyContainer($this->getDependencyContainer())
             ->setRequest($this->getRequest());
-
-        return $controller;
     }
 }

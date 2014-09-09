@@ -25,7 +25,7 @@ class ControllerTestCase extends PHPUnit_Framework_TestCase
     protected $controllerClass;
 
     /**
-     * @var \Koine\Mvc\Controller
+     * @var Controller
      */
     protected $controller;
 
@@ -34,6 +34,9 @@ class ControllerTestCase extends PHPUnit_Framework_TestCase
         $this->setUpController();
     }
 
+    /**
+     * Sets up the controller for testing
+     */
     public function setUpController()
     {
         $session     = array();
@@ -56,15 +59,24 @@ class ControllerTestCase extends PHPUnit_Framework_TestCase
             'params'      => $this->params,
         ));
 
+        $controllerClass = $this->controllerClass;
+        $this->controller = new $controllerClass();
+
         $this->frontController = new FrontController();
         $this->frontController
             ->setRequest($this->request)
             ->setResponse($this->response)
             ->setView($this->view)
             ->setControllerClass($this->controllerClass)
+            ->setController($this->controller)
             ->setDependencyContainer($this->dependencyContainer);
     }
 
+    /**
+     * Assert that the response redirects to given url
+     * @param string  $url
+     * @param integer $statusCode
+     */
     public function assertResponseRedirectsTo($url, $statusCode = 302)
     {
         $this->assertResponseStatusCode(302);
@@ -78,6 +90,10 @@ class ControllerTestCase extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * Asserts that the response code is $code
+     * @param integer $code
+     */
     public function assertResponseStatusCode($code)
     {
         $this->assertEquals(
@@ -87,11 +103,23 @@ class ControllerTestCase extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * Asserts that the response code is 200
+     */
     public function assertResponseOk()
     {
         $this->assertResponseStatusCode(200);
     }
 
+    /**
+     * Make a request to the controller action
+     * @param string $method
+     * @param string $action
+     * @param array  $params
+     * @param array  $session
+     * @param array  $environment
+     * @param array  $cookies
+     */
     public function makeRequest(
         $method,
         $action,
@@ -111,11 +139,20 @@ class ControllerTestCase extends PHPUnit_Framework_TestCase
         $this->dispatch();
     }
 
+    /**
+     * @return Response
+     */
     public function getResponse()
     {
         return $this->response;
     }
 
+    /**
+     * Adds params to object
+     * @param Hash
+     * @param  array $params
+     * @return self
+     */
     public function mergeParams($object, $params)
     {
         foreach ($params as $key => $value) {
@@ -125,13 +162,23 @@ class ControllerTestCase extends PHPUnit_Framework_TestCase
         return $this;
     }
 
+    /**
+     * Sets the request method
+     * @param string method
+     * @return self
+     */
     public function setMethod($method)
     {
-        $this->environment['REQUEST_METHOD'] = $method;
+        $this->params['_method'] = $method;
 
         return $this;
     }
 
+    /**
+     * Sets the controller action
+     * @param  string $action
+     * @return self
+     */
     public function setAction($action)
     {
         $this->frontController->setAction($action);
@@ -139,8 +186,74 @@ class ControllerTestCase extends PHPUnit_Framework_TestCase
         return $this;
     }
 
+    /**
+     * Execute controller and sets up response
+     */
     public function dispatch()
     {
         $this->response = $this->frontController->execute();
+    }
+
+    /**
+     * @return Controller
+     */
+    public function getController()
+    {
+        return $this->controller;
+    }
+
+    /**
+     * Make a POST request
+     * @param string $action
+     * @param array  $params
+     * @param array  $session
+     */
+    public function post($action, $params = array(), $session = array())
+    {
+        return $this->makeRequest('POST', $action, $params, $session);
+    }
+
+    /**
+     * Make a GET request
+     * @param string $action
+     * @param array  $params
+     * @param array  $session
+     */
+    public function get($action, $params = array(), $session = array())
+    {
+        return $this->makeRequest('GET', $action, $params, $session);
+    }
+
+    /**
+     * Make a PATCH request
+     * @param string $action
+     * @param array  $params
+     * @param array  $session
+     */
+    public function patch($action, $params = array(), $session = array())
+    {
+        return $this->makeRequest('PATCH', $action, $params, $session);
+    }
+
+    /**
+     * Make a PUT request
+     * @param string $action
+     * @param array  $params
+     * @param array  $session
+     */
+    public function put($action, $params = array(), $session = array())
+    {
+        return $this->makeRequest('PUT', $action, $params, $session);
+    }
+
+    /**
+     * Make a DELETE request
+     * @param string $action
+     * @param array  $params
+     * @param array  $session
+     */
+    public function delete($action, $params = array(), $session = array())
+    {
+        return $this->makeRequest('DELETE', $action, $params, $session);
     }
 }
