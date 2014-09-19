@@ -25,8 +25,7 @@ class ControllerTestCaseTest extends ControllerTestCase
      */
     public function canTestMethodAndParams()
     {
-        $this->makeRequest(
-            'POST',
+        $this->post(
             'userHello',
             array('name' => 'Jon'),
             array('user_id' => 1)
@@ -34,7 +33,9 @@ class ControllerTestCaseTest extends ControllerTestCase
 
         $expectation = "Method: POST UserId: 1";
         $this->assertResponseOk();
-        $this->assertEquals($expectation, $this->getResponse()->getBody());
+        $this->assertResponseContains('POST');
+        $this->assertResponseNotContains('other stuff');
+        $this->assertResponseContent($expectation);
     }
 
     /**

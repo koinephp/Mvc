@@ -79,7 +79,6 @@ class ControllerTestCase extends PHPUnit_Framework_TestCase
      */
     public function assertResponseRedirectsTo($url, $statusCode = 302)
     {
-        $this->assertResponseStatusCode(302);
 
         $actual = $this->getResponse()->getRedirectUrl();
 
@@ -87,6 +86,47 @@ class ControllerTestCase extends PHPUnit_Framework_TestCase
             $actual,
             $url,
             "Failed asserting that redirect '$actual' is '$url' "
+        );
+
+        $this->assertResponseStatusCode(302);
+    }
+
+    /**
+     * Assert that the response has given content
+     * @param string $content
+     */
+    public function assertResponseContent($content)
+    {
+        $this->assertEquals(
+            $content,
+            $this->getResponse()->getBody(),
+            "Failed asserting that response body is '$content'"
+        );
+    }
+
+    /**
+     * Assert that the response has given content
+     * @param string $content
+     */
+    public function assertResponseContains($content)
+    {
+        $this->assertContains(
+            $content,
+            $this->getResponse()->getBody(),
+            "Failed asserting that response contains '$content'"
+        );
+    }
+
+    /**
+     * Assert that the response does not contain given content
+     * @param string $content
+     */
+    public function assertResponseNotContains($content)
+    {
+        $this->assertNotContains(
+            $content,
+            $this->getResponse()->getBody(),
+            "Failed asserting that response does not contain '$content'"
         );
     }
 

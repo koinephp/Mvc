@@ -51,7 +51,7 @@ class View extends Renderer
      * Renders with layout
      *
      * @param string $template
-     * @param array $localVariables
+     * @param array  $localVariables
      */
     public function renderWithLayout($template, array $localVariables = array())
     {
