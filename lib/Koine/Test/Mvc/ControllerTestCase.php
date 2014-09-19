@@ -31,13 +31,13 @@ class ControllerTestCase extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->setUpController();
+        $this->setUpController($this->controllerClass);
     }
 
     /**
      * Sets up the controller for testing
      */
-    public function setUpController()
+    public function setUpController($controllerClass)
     {
         $session     = array();
         $cookies     = array();
@@ -59,7 +59,6 @@ class ControllerTestCase extends PHPUnit_Framework_TestCase
             'params'      => $this->params,
         ));
 
-        $controllerClass = $this->controllerClass;
         $this->controller = new $controllerClass();
 
         $this->frontController = new FrontController();
