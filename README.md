@@ -17,6 +17,10 @@ Package information:
 [![Latest Unstable Version](https://poser.pugx.org/koine/mvc/v/unstable.svg)](https://packagist.org/packages/koine/mvc)
 [![License](https://poser.pugx.org/koine/mvc/license.svg)](https://packagist.org/packages/koine/mvc)
 
+### Skeleton app
+
+For a ready to use app clone the [skeleton app](https://github.com/koinephp/mvc-skeleton) or follow its composer instalation guide.
+
 ### Usage
 
 ```php
@@ -123,6 +127,11 @@ use Koine\Test\Mvc\ControllerTestCase;
 
 class HelloWordControllerTest extends ControllerTestCase
 {
+    public function setUp()
+    {
+        $this->setUpController('MyApp\\HelloWordController');
+    }
+
     public function testSayHelloWhenUserIsLoggedIn()
     {
         $session = array('user_id');
@@ -168,7 +177,7 @@ Append the lib to your requirements key in your composer.json.
     // [..]
     require: {
         // append this line to your requirements
-        "koine/mvc": "0.9.*"
+        "koine/mvc": "~0.9.7"
     }
 }
 ```
