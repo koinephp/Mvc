@@ -16,6 +16,7 @@ Package information:
 [![Total Downloads](https://poser.pugx.org/koine/mvc/downloads.svg)](https://packagist.org/packages/koine/mvc)
 [![Latest Unstable Version](https://poser.pugx.org/koine/mvc/v/unstable.svg)](https://packagist.org/packages/koine/mvc)
 [![License](https://poser.pugx.org/koine/mvc/license.svg)](https://packagist.org/packages/koine/mvc)
+[![Dependency Status](https://gemnasium.com/koinephp/Mvc.png)](https://gemnasium.com/koinephp/Mvc)
 
 ### Skeleton app
 
