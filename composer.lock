@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b77b85687a420684a30435e306beef59",
+    "hash": "2548fbd5bf312f4ae76aa3c4712184c6",
     "packages": [
         {
             "name": "koine/core",
-            "version": "0.9.6",
+            "version": "0.9.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/koinephp/Core.git",
-                "reference": "1d69473db97c9332822674530993f3f36a460d64"
+                "reference": "4a9ad17d3b668ac4ba57d1a9d0206ed364abe30e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/koinephp/Core/zipball/1d69473db97c9332822674530993f3f36a460d64",
-                "reference": "1d69473db97c9332822674530993f3f36a460d64",
+                "url": "https://api.github.com/repos/koinephp/Core/zipball/4a9ad17d3b668ac4ba57d1a9d0206ed364abe30e",
+                "reference": "4a9ad17d3b668ac4ba57d1a9d0206ed364abe30e",
                 "shasum": ""
             },
             "require": {
@@ -45,20 +45,62 @@
             ],
             "description": "Primitive types behaving like grown up objects",
             "homepage": "https://github.com/koinephp/core",
-            "time": "2014-08-29 19:08:01"
+            "time": "2014-09-22 13:31:48"
         },
         {
             "name": "koine/http",
-            "version": "0.9.1",
+            "version": "0.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/koinephp/Http.git",
-                "reference": "2a9295276fa2d6f59a5cf7e886ef3a63bdf0a164"
+                "reference": "b9159e2f5d728c279af2e23079ffaf8795715981"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/koinephp/Http/zipball/2a9295276fa2d6f59a5cf7e886ef3a63bdf0a164",
-                "reference": "2a9295276fa2d6f59a5cf7e886ef3a63bdf0a164",
+                "url": "https://api.github.com/repos/koinephp/Http/zipball/b9159e2f5d728c279af2e23079ffaf8795715981",
+                "reference": "b9159e2f5d728c279af2e23079ffaf8795715981",
+                "shasum": ""
+            },
+            "require": {
+                "koine/core": "0.9.*",
+                "koine/strong-parameters": "0.9.*",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Koine\\": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcelo Jacobus",
+                    "email": "marcelo.jacobus@gmail.com"
+                }
+            ],
+            "description": "Http objects for handling requests and responses",
+            "time": "2014-09-23 20:43:25"
+        },
+        {
+            "name": "koine/strong-parameters",
+            "version": "0.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/koinephp/StrongParameters.git",
+                "reference": "a9d64cbfb9ca0deb3d3fabbbf7dc54ca4250bb1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/koinephp/StrongParameters/zipball/a9d64cbfb9ca0deb3d3fabbbf7dc54ca4250bb1a",
+                "reference": "a9d64cbfb9ca0deb3d3fabbbf7dc54ca4250bb1a",
                 "shasum": ""
             },
             "require": {
@@ -85,21 +127,21 @@
                     "email": "marcelo.jacobus@gmail.com"
                 }
             ],
-            "description": "Http objects for handling requests and responses",
-            "time": "2014-09-03 01:40:36"
+            "description": "Rails like Strong parameters for php",
+            "time": "2014-09-23 20:36:17"
         },
         {
             "name": "koine/view",
-            "version": "0.9.6",
+            "version": "0.9.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/koinephp/View.git",
-                "reference": "e947cfb55fbe247670ddea11c3863eb091dfaea0"
+                "reference": "fe863261890284d68ca4e62edbd6ddfbde2e59e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/koinephp/View/zipball/e947cfb55fbe247670ddea11c3863eb091dfaea0",
-                "reference": "e947cfb55fbe247670ddea11c3863eb091dfaea0",
+                "url": "https://api.github.com/repos/koinephp/View/zipball/fe863261890284d68ca4e62edbd6ddfbde2e59e6",
+                "reference": "fe863261890284d68ca4e62edbd6ddfbde2e59e6",
                 "shasum": ""
             },
             "require": {
@@ -134,7 +176,7 @@
                 }
             ],
             "description": "Simple View renderer",
-            "time": "2014-09-05 17:34:59"
+            "time": "2014-09-05 18:01:16"
         },
         {
             "name": "nurse/di",
@@ -630,16 +672,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.2.4",
+            "version": "4.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "f0c2d374ad06ec1e56c721f4ed87c59ff35f440e"
+                "reference": "c28a790620fe30b049bb693be1ef9cd4e0fe906c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f0c2d374ad06ec1e56c721f4ed87c59ff35f440e",
-                "reference": "f0c2d374ad06ec1e56c721f4ed87c59ff35f440e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c28a790620fe30b049bb693be1ef9cd4e0fe906c",
+                "reference": "c28a790620fe30b049bb693be1ef9cd4e0fe906c",
                 "shasum": ""
             },
             "require": {
@@ -700,20 +742,20 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-08-31 06:46:49"
+            "time": "2014-09-14 09:31:24"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "42e589e08bc86e3e9bdf20d385e948347788505b"
+                "reference": "b241b18d87a47093f20fae8b0ba40379b00bd53a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/42e589e08bc86e3e9bdf20d385e948347788505b",
-                "reference": "42e589e08bc86e3e9bdf20d385e948347788505b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/b241b18d87a47093f20fae8b0ba40379b00bd53a",
+                "reference": "b241b18d87a47093f20fae8b0ba40379b00bd53a",
                 "shasum": ""
             },
             "require": {
@@ -722,7 +764,7 @@
                 "phpunit/php-text-template": "~1.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.2.*@dev"
+                "phpunit/phpunit": "~4.2"
             },
             "suggest": {
                 "ext-soap": "*"
@@ -739,9 +781,6 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                ""
-            ],
             "license": [
                 "BSD-3-Clause"
             ],
@@ -758,7 +797,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2014-08-02 13:50:58"
+            "time": "2014-09-06 17:32:37"
         },
         {
             "name": "psr/log",
