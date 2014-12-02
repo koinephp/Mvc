@@ -1,6 +1,6 @@
 <?php
 
-namespace KonieTests\Mvc;
+namespace Koine\Mvc;
 
 use Koine\Mvc\View;
 use Koine\View\Config;

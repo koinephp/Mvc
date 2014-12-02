@@ -1,6 +1,6 @@
 <?php
 
-namespace KonieTests\Mvc;
+namespace Koine\Mvc;
 
 use PHPUnit_Framework_TestCase;
 use Koine\Mvc\Controller;
