@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "php" : ">=5.3.3",
+        "php" : ">=5.4",
         "koine/http" : "~0.9.3",
         "koine/view" : "~0.9.5",
         "nurse/di": "0.9.*"
